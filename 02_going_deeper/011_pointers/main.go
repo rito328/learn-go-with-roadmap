@@ -19,9 +19,9 @@ func main01() {
 	// ポインターを通じて x の値を変更
 	*p = 20
 
-	fmt.Printf("x の値: %d\n", x)           // 20
+	fmt.Printf("x の値: %d\n", x)       // 20
 	fmt.Printf("p の値(アドレス): %v\n", p) // メモリアドレス
-	fmt.Printf("p の指す値: %d\n", *p)      // 20
+	fmt.Printf("p の指す値: %d\n", *p)    // 20
 }
 
 // -- ポインターを使った値の変更 -- //
