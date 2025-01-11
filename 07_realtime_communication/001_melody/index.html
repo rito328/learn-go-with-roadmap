@@ -1,0 +1,81 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="ja">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Melody WebSocket Demo</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Melody チャットデモ</h1>-->
+<!--<input id="message" type="text" placeholder="メッセージを入力">-->
+<!--<button onclick="sendMessage()">送信</button>-->
+<!--<ul id="messages"></ul>-->
+
+<!--<script>-->
+<!--    // WebSocket 接続を作成-->
+<!--    const ws = new WebSocket("ws://localhost:8080/ws");-->
+
+<!--    // メッセージ受信時の処理-->
+<!--    ws.onmessage = (event) => {-->
+<!--        const li = document.createElement("li");-->
+<!--        li.textContent = event.data;-->
+<!--        document.getElementById("messages").appendChild(li);-->
+<!--    };-->
+
+<!--    // メッセージ送信処理-->
+<!--    function sendMessage() {-->
+<!--        const input = document.getElementById("message");-->
+<!--        ws.send(input.value);-->
+<!--        input.value = ""; // 入力欄をクリア-->
+<!--    }-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melody チャット</title>
+</head>
+<body>
+<h1>Melody チャット</h1>
+<p id="username-display"></p> <!-- ユーザー名を表示する場所 -->
+<input id="message" type="text" placeholder="メッセージを入力">
+<button onclick="sendMessage()">送信</button>
+<ul id="messages"></ul>
+
+<script>
+    // ユーザー名の取得
+    let username = prompt("ユーザー名を入力してください", "匿名ユーザー");
+    if (!username) {
+        username = "匿名ユーザー"; // 入力が空の場合のデフォルト値
+    }
+
+    // ユーザー名を画面に表示
+    document.getElementById("username-display").textContent = `あなたの名前: ${username}`;
+
+    // WebSocket 接続
+    const ws = new WebSocket(`ws://localhost:8080/ws?username=${encodeURIComponent(username)}`);
+
+    // メッセージ受信時の処理
+    ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        const li = document.createElement("li");
+        li.textContent = `${data.sender}: ${data.content}`;
+        document.getElementById("messages").appendChild(li);
+    };
+
+    // メッセージ送信処理
+    function sendMessage() {
+        const input = document.getElementById("message");
+        if (input.value.trim() !== "") {
+            ws.send(input.value);
+            input.value = ""; // 入力欄をクリア
+        }
+    }
+</script>
+</body>
+</html>
+
