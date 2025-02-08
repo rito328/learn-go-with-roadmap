@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "rpcx-example/proto"; // Go のパッケージ名を指定
+
+// HelloRequest: クライアントから送られるリクエスト
+message HelloRequest {
+  string name = 1;
+}
+
+// HelloResponse: サーバーが返すレスポンス
+message HelloResponse {
+  string message = 1;
+}
