@@ -1,0 +1,18 @@
+syntax = "v1"
+
+type getUserRequest {
+	UserId string `path:"userId"`
+}
+
+type getUserResponse {
+	Message string `json:"message"`
+}
+
+@server (
+	middleware: RequestDurationLoggerMiddleware
+)
+service user-api {
+	@handler GetUser
+	get /users/id/:userId (getUserRequest) returns (getUserResponse)
+}
+
