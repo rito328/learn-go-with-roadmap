@@ -1,4 +1,6 @@
-## roadmap.sh ですすめる Go 学習
+## Go 学習 with roadmap.sh
+
+学習で実装したコード集
 
 - 学習カリキュラム
   - [Learn to become a Go developer - roadmap.sh](https://roadmap.sh/golang)
